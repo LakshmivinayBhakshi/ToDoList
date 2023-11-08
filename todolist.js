@@ -10,14 +10,28 @@ addButton.addEventListener("click", () => {
 
     if (taskText !== "") {
         const listItem = document.createElement("li");
-        listItem.innerHTML = `${taskText} <button class="delete">Delete</button`;
+        listItem.innerHTML = `<span>${taskText} </span>
+        <button class = "edit">Edit</button>
+        <button class="delete">Delete</button>`
+        
 
         
         taskList.appendChild(listItem);
 
         taskInput.value = "";
-
+        const editButton = listItem.querySelector(".edit")
         const deleteButton = listItem.querySelector(".delete");
+
+        editButton.addEventListener("click", () => {
+                    const taskSpan = listItem.querySelector("span");
+                    const updatedTaskText = prompt("Edit task:", taskSpan.textContent);
+                    if (updatedTaskText !== null) {
+                        taskSpan.textContent = updatedTaskText;
+                    }
+                });
+
+
+
         deleteButton.addEventListener("click", () => {
             taskList.removeChild(listItem);
         });
@@ -26,7 +40,7 @@ addButton.addEventListener("click", () => {
 
 
 deleteAllTaskButton.addEventListener("click" , () => {
-while(taskList.firstChild){
+if(taskList.firstChild){
     taskList.removeChild(taskList.firstChild);
 }
 })
